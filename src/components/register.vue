@@ -5,7 +5,7 @@
           
             <h1>Inscription</h1>
              <div class="form-group mb-3 col-10 ms-5 pt-2">
-                <label for="form-label">Reference :</label>
+                <label for="form-label">CIN :</label>
                 <input type="text" v-model="reference" class="form-control" required>
             </div>
            

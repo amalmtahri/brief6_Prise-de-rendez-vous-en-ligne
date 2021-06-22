@@ -23,7 +23,7 @@
               <td>{{result.id}}</td>
                 <td><input v-model="editClient.date" type="date"></td>
                 <td><input v-model="editClient.horaire" type="text"></td>
-                <td><input v-model="editClient.typeCons" type="text"></td>
+                <td><input v-model="editClient.typeconsult" type="text"></td>
                 <td><button class="btn btn-success btn-sm rounded-0" @click="update();" ><i class="material-icons" >update</i></button> &nbsp;<button class="btn btn-danger btn-sm rounded-0" @click="cancel();"><i class="material-icons" >cancel</i></button></td>
             </template>
           <template v-else>
@@ -54,7 +54,7 @@ export default {
               id:'',
               date:'',
               horaire:'',
-              typeCons:''
+              typeconsult:''
     }
     }
   },
@@ -90,45 +90,43 @@ export default {
             this.editClient.id=data[0].id;
             this.editClient.date=data[0].date;
             this.editClient.horaire=data[0].horaire;
-            this.editClient.typeCons=data[0].typeconsult;
+            this.editClient.typeconsult=data[0].typeconsult;
         })
     },
-        update(){
+       async update(){
         console.log(JSON.stringify(this.editClient));
-        fetch(' http://localhost/brief6/Rendezvous/update/'+this.editClient.id,{
+       await fetch('http://localhost/brief6/Rendezvous/update',{
             method: 'PUT',
             headers:{
                 'Content-Type': 'application/json',
             },
            body: JSON.stringify({
+
                     date: this.editClient.date,
                     horaire: this.editClient.horaire,
-                    typeconsult: this.editClient.typeCons
-            }),
-        })
-        .then(
-            this.editReser='',
-            this.editClient.id='',
-            this.editClient.date='',
-            this.editClient.horaire='',
-            this.editClient.typeCons='',
-            // console.log(JSON.stringify(this.editClient))
-
-           
-        )
-        .then(this.getAll())
-    },
-      cancel(){
-          this.editReser='';
-          this.editClient.id=''
+                    typeconsult: this.editClient.typeconsult,
+                    id : this.editClient.id
+            })
+        });
+       
+     await this.getAll();
+            this.editReser='';
+            this.editClient.id='';
             this.editClient.date='';
             this.editClient.horaire='';
-            this.editClient.typeCons='';
+            this.editClient.typeconsult='';
+       },
+      cancel(){
+          this.editReser='';
+          this.editClient.id='';
+            this.editClient.date='';
+            this.editClient.horaire='';
+            this.editClient.typeconsult='';
     }
 
-  }
   
-}
+  }
+};
 </script>
 
 <style>
